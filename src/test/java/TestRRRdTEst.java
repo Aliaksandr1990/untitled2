@@ -1,5 +1,7 @@
 import com.codeborne.selenide.CollectionCondition;
 import com.codeborne.selenide.Configuration;
+import config.WebDriver;
+import config.WebDriverConfig;
 import data.LOCALE;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Tag;
@@ -21,13 +23,12 @@ public class TestRRRdTEst {
 
    @BeforeAll
    static void setUp(){
-       System.setProperty("browser", "chrome");
        UIDriver.configure();
     }
 
     @Test
     void test111111() {
-        open("https://github.com/");
+        open(WebDriver.config.getBaseUrl());
         $("span[data-target='qbsearch-input.inputButtonText']").shouldHave(text("Search or jump to..."));
 
     }
