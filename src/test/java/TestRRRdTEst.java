@@ -26,7 +26,6 @@ public class TestRRRdTEst {
     }
 
     @Test
-    @Tag("API")
     void test111111() {
         open("https://github.com/");
         $("span[data-target='qbsearch-input.inputButtonText']").shouldHave(text("Search or jump to..."));

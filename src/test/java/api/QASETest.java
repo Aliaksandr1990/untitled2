@@ -5,6 +5,7 @@ import api.model.response.ProjectResponseModel;
 import api.model.response.Result;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static api.helpers.CustomAllureListener.withCustomTemplates;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class QASETest {
 
     @Test
+    @Tag("Api")
     void jdwjdwd() {
 
         ProjectModel projectModel = new ProjectModel();
