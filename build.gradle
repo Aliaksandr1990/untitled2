@@ -1,0 +1,62 @@
+plugins {
+    id 'java'
+    id 'io.qameta.allure' version '3.0.1'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+// Настройка Allure (v3.x — упрощённая)
+allure {
+    version.set('2.32.0') // ← лучше синхронизировать с allure-junit5 версией
+    // В v3.x НЕТ блока adapters, НЕТ aspectjWeaver в этом блоке
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    testImplementation(
+            platform("org.junit:junit-bom:5.11.3"),
+            'org.junit.jupiter:junit-jupiter',
+            'org.assertj:assertj-core:3.27.6',
+            'io.qameta.allure:allure-junit5:2.32.0',
+            'io.qameta.allure:allure-selenide:2.32.0',
+            'io.qameta.allure:allure-rest-assured:2.32.0',
+            'io.rest-assured:rest-assured:6.0.0',
+            'org.aeonbits.owner:owner:1.0.4')
+    testRuntimeOnly 'org.aspectj:aspectjweaver:1.9.22'
+
+    implementation(
+            'com.codeborne:selenide:7.13.0',
+            'com.codeborne:pdf-test:1.5.0',
+            'com.codeborne:xls-test:1.4.3',
+            'com.opencsv:opencsv:5.12.0',
+            'com.google.code.gson:gson:2.13.2')
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform {
+        if (System.getProperty("tag") != null && !System.getProperty("tag").toString().isEmpty()) includeTags System.getProperty("tag").toString()
+    }
+
+    if (System.getProperty("threads") != null) {
+        systemProperties += [
+                'junit.jupiter.execution.parallel.enabled'                 : true,
+                'junit.jupiter.execution.parallel.mode.default'            : 'concurrent',
+                'junit.jupiter.execution.parallel.mode.classes.default'    : 'concurrent',
+                'junit.jupiter.execution.parallel.config.strategy'         : 'fixed',
+                'junit.jupiter.execution.parallel.config.fixed.parallelism': System.getProperty("threads").toInteger()
+        ]
+    }
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
