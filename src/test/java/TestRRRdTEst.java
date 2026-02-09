@@ -28,7 +28,7 @@ public class TestRRRdTEst {
 
     @Test
     void test111111() {
-        open(WebDriver.config.getBaseUrl());
+        open();
         $("span[data-target='qbsearch-input.inputButtonText']").shouldHave(text("Search or jump to..."));
 
     }
@@ -37,7 +37,7 @@ public class TestRRRdTEst {
     @Test
     @Tag("UI")
     void test2222222() {
-        open("https://github.com/");
+        open(WebDriver.config.getBaseUrl());
         $("span[data-target='qbsearch-input.inputButtonText']").shouldHave(text("Search or jump to..."));
 
     }
