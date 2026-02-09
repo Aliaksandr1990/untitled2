@@ -16,6 +16,7 @@ public class UIDriver {
 
     public static void configure() {
         Configuration.browserSize = "1920x1080";
+        Configuration.baseUrl="";
         Configuration.browser = WebDriver.config.getBrowser();
         Configuration.timeout = 5000;
         MutableCapabilities capabilities = new DesiredCapabilities();
